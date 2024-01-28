@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 import { PhotoContext } from "../context/PhotoContext";
 import { getDownloadURL, ref } from 'firebase/storage';
 import { collection, doc, getDoc } from "firebase/firestore";
@@ -8,6 +8,7 @@ import "./PhotoDetailsPage.css";
 
 const PhotoDetailsPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { photos } = useContext(PhotoContext);
   const [photoDetails, setPhotoDetails] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -75,6 +76,7 @@ const PhotoDetailsPage = () => {
       <img src={photoDetails.imageUrl} alt={photoDetails.title} className="photo-fullsize" />
       <h2>{photoDetails.title}</h2>
       <p>{photoDetails.description}</p>
+      <button onClick={() => navigate(-1)} className="back-button">Back to Gallery</button>
       </>
     
   )}
